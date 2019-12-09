@@ -4,15 +4,15 @@
   "description": "Tools for building stuff (cross platform!)",
   "main": "index.js",
   "author": "Kevin Frei (kevinfrei@hotmail.com)",
-  "license": "The Unlicense",
+  "license": "Unlicense",
   "bin": {
     "babelify": "./babelify.js"
   },
   "dependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.2",
-    "@babel/preset-flow": "^7.0.0",
-    "@babel/preset-react": "^7.7.0",
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-flow": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
     "gen-flow-files": "^0.4.7",
     "shelljs": "^0.8.3"
   },
