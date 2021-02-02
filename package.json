@@ -1,21 +1,299 @@
 {
-  "name": "build-tools",
+  "name": "@freik/build-tools",
   "version": "1.0.2",
   "description": "Tools for building stuff (cross platform!)",
   "main": "index.js",
   "author": "Kevin Frei (kevinfrei@hotmail.com)",
   "license": "Unlicense",
   "bin": {
-    "babelify": "./babelify.js"
+    "babelify": "./lib/babelify.js",
+    "tools": "./lib/tools.js"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinfrei/build-tools.git"
+  },
+  "private": false,
+  "scripts": {
+    "min": "node ./lib/tools.js minify -i lib/*.js",
+    "test": "jest --passWithNoTests --config jestconfig.json",
+    "build": "rimraf lib && tsc",
+    "prepare": "yarn run build",
+    "prepublishOnly": "yarn test && yarn run lint",
+    "format": "prettier --write \"**/*.ts\" \"**/*.md\" \"**/*.json\" \"**/*.js\"",
+    "lint": "yarn run eslint --fix --ext .ts src",
+    "preversion": "yarn run lint",
+    "version": "yarn run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "compile": "tsc --noEmit",
+    "chk": "yarn format && yarn lint && yarn compile && yarn test"
+  },
+  "devDependencies": {
+    "@types/concurrently": "^5.2.1",
+    "@types/jest": "^26.0.20",
+    "@types/minimist": "^1.2.1",
+    "@types/node": "^14.14.22",
+    "@types/shelljs": "^0.8.8",
+    "@types/uglify-es": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "eslint": "^7.19.0",
+    "husky": "^4.3.8",
+    "jest": "^26.6.3",
+    "jest-extended": "^0.11.5",
+    "ts-jest": "^26.5.0",
+    "tsc": "^1.20150623.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format",
+      "pre-push": "yarn chk"
+    }
   },
   "dependencies": {
-    "@babel/cli": "^7.12.10",
+    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.12.10",
     "@babel/preset-flow": "^7.12.1",
     "@babel/preset-react": "^7.12.10",
+    "@freik/core-utils": "^0.9.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.3",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "gen-flow-files": "^0.4.11",
-    "shelljs": "^0.8.4"
+    "minimist": "^1.2.5",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "shelljs": "^0.8.4",
+    "typescript": "^4.1.3",
+    "uglify-es": "^3.3.9"
   },
-  "repository": "https://github.com/kevinfrei/build-tools.git",
-  "private": false
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "extends": [
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "prettier",
+      "prettier/@typescript-eslint"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "@typescript-eslint/adjacent-overload-signatures": "error",
+      "@typescript-eslint/array-type": [
+        "error",
+        {
+          "default": "array"
+        }
+      ],
+      "@typescript-eslint/ban-types": [
+        "error",
+        {
+          "types": {
+            "Object": {
+              "message": "Avoid using the `Object` type. Did you mean `object`?"
+            },
+            "Function": {
+              "message": "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."
+            },
+            "Boolean": {
+              "message": "Avoid using the `Boolean` type. Did you mean `boolean`?"
+            },
+            "Number": {
+              "message": "Avoid using the `Number` type. Did you mean `number`?"
+            },
+            "String": {
+              "message": "Avoid using the `String` type. Did you mean `string`?"
+            },
+            "Symbol": {
+              "message": "Avoid using the `Symbol` type. Did you mean `symbol`?"
+            }
+          }
+        }
+      ],
+      "@typescript-eslint/consistent-type-assertions": "error",
+      "@typescript-eslint/dot-notation": "error",
+      "@typescript-eslint/indent": "off",
+      "@typescript-eslint/member-delimiter-style": [
+        "off",
+        {
+          "multiline": {
+            "delimiter": "none",
+            "requireLast": true
+          },
+          "singleline": {
+            "delimiter": "semi",
+            "requireLast": false
+          }
+        }
+      ],
+      "@typescript-eslint/naming-convention": [
+        "warn",
+        {
+          "selector": "default",
+          "format": [
+            "camelCase",
+            "PascalCase"
+          ],
+          "leadingUnderscore": "allow",
+          "trailingUnderscore": "allow"
+        },
+        {
+          "selector": "variable",
+          "format": [
+            "camelCase",
+            "UPPER_CASE",
+            "PascalCase"
+          ],
+          "leadingUnderscore": "allow",
+          "trailingUnderscore": "allow"
+        },
+        {
+          "selector": "typeLike",
+          "format": [
+            "PascalCase"
+          ]
+        },
+        {
+          "selector": "function",
+          "format": [
+            "camelCase",
+            "PascalCase"
+          ],
+          "leadingUnderscore": "forbid",
+          "trailingUnderscore": "forbid"
+        }
+      ],
+      "@typescript-eslint/no-empty-function": "error",
+      "@typescript-eslint/no-empty-interface": "error",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-misused-new": "error",
+      "@typescript-eslint/no-namespace": "error",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-parameter-properties": "off",
+      "@typescript-eslint/no-unused-expressions": "error",
+      "@typescript-eslint/no-use-before-define": "off",
+      "@typescript-eslint/no-var-requires": "error",
+      "@typescript-eslint/prefer-for-of": "error",
+      "@typescript-eslint/prefer-function-type": "error",
+      "@typescript-eslint/prefer-namespace-keyword": "error",
+      "@typescript-eslint/quotes": "off",
+      "@typescript-eslint/semi": [
+        "off",
+        null
+      ],
+      "@typescript-eslint/triple-slash-reference": [
+        "error",
+        {
+          "path": "always",
+          "types": "prefer-import",
+          "lib": "always"
+        }
+      ],
+      "@typescript-eslint/type-annotation-spacing": "off",
+      "@typescript-eslint/unified-signatures": "error",
+      "arrow-parens": [
+        "off",
+        "always"
+      ],
+      "brace-style": [
+        "off",
+        "off"
+      ],
+      "comma-dangle": "off",
+      "complexity": "off",
+      "constructor-super": "error",
+      "eol-last": "off",
+      "eqeqeq": [
+        "error",
+        "smart"
+      ],
+      "guard-for-in": "error",
+      "id-blacklist": [
+        "error",
+        "any",
+        "Number",
+        "number",
+        "String",
+        "string",
+        "Boolean",
+        "boolean",
+        "Undefined",
+        "undefined"
+      ],
+      "id-match": "error",
+      "linebreak-style": "off",
+      "max-classes-per-file": [
+        "error",
+        1
+      ],
+      "max-len": "off",
+      "new-parens": "off",
+      "newline-per-chained-call": "off",
+      "no-bitwise": "error",
+      "no-caller": "error",
+      "no-cond-assign": "error",
+      "no-console": "warn",
+      "no-debugger": "warn",
+      "no-empty": "warn",
+      "no-eval": "error",
+      "no-extra-semi": "off",
+      "no-fallthrough": "off",
+      "no-invalid-this": "off",
+      "no-irregular-whitespace": "off",
+      "no-multiple-empty-lines": "off",
+      "no-new-wrappers": "error",
+      "no-shadow": [
+        "error",
+        {
+          "hoist": "all"
+        }
+      ],
+      "no-throw-literal": "error",
+      "no-trailing-spaces": "off",
+      "no-undef-init": "error",
+      "no-underscore-dangle": "error",
+      "no-unsafe-finally": "error",
+      "no-unused-labels": "error",
+      "no-var": "error",
+      "object-shorthand": "error",
+      "one-var": [
+        "error",
+        "never"
+      ],
+      "prefer-const": "error",
+      "quote-props": "off",
+      "radix": "error",
+      "space-before-function-paren": "off",
+      "space-in-parens": [
+        "off",
+        "never"
+      ],
+      "spaced-comment": [
+        "error",
+        "always",
+        {
+          "markers": [
+            "/"
+          ]
+        }
+      ],
+      "use-isnan": "error",
+      "valid-typeof": "off"
+    }
+  }
 }
