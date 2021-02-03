@@ -7,7 +7,7 @@
   "license": "Unlicense",
   "bin": {
     "babelify": "./lib/babelify.js",
-    "tools": "./lib/tools.js"
+    "minify": "./lib/minify.js"
   },
   "files": [
     "lib/**/*"
