@@ -85,7 +85,7 @@ export async function minify(args: string[]): Promise<number> {
         // console.log(`Before: ${orig.length} after ${res.code.length}`);
         return true;
       },
-      { recurse, keepGoing },
+      { recurse, keepGoing, fileTypes: '.js' },
     )
   ) {
     return 0;
