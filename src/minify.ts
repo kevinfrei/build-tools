@@ -7,6 +7,7 @@ import { promises as fsp } from 'fs';
 import { MakeError, Type } from '@freik/core-utils';
 import path from 'path';
 import { invoke } from './tools';
+import { ForFiles } from '@freik/node-utils';
 
 const err = MakeError('minify-err');
 
@@ -46,13 +47,14 @@ export async function minify(args: string[]): Promise<number> {
     ? m.s.replace(/^\.*/, '').replace(/\.*$/, '') // Get rid of .'s
     : undefined;
   const inPlace = m.i === true;
-  const recursive = m.r === true;
+  const recurse = m.r === true;
+  const keepGoing = m.e === true;
   const outDir = Type.hasStr(m, 'o') ? m.o : undefined;
   if (inPlace && suffix) {
     err("-i (in-place) and -s (suffix) don't work together");
     return -1;
   }
-  if (recursive && outDir) {
+  if (recurse && outDir) {
     err("-r (recursive) and -o (output dir) don't work together");
     return -1;
   }
@@ -61,30 +63,34 @@ export async function minify(args: string[]): Promise<number> {
     return -1;
   }
 
-  let fnRes = true;
   // Run uglify on each file specified
-  for (const loc of m._) {
-    // TODO: Add recursion (if specified) & full directory scanning
-    const orig = await fsp.readFile(loc, 'utf-8');
-    const res = Uglify.minify(orig, uglifyOptions);
-    if (res.error) {
-      err(res.error);
-      if (m.e) {
-        return -1;
-      }
-      fnRes = false;
-      continue;
-    }
-    const dest = inPlace
-      ? loc
-      : getSuffixedName(loc, suffix || 'min', outDir || '');
-    if (outDir) {
-      shelljs.mkdir('-p', path.dirname(dest));
-    }
-    await fsp.writeFile(dest, res.code, 'utf-8');
-    // console.log(`Before: ${orig.length} after ${res.code.length}`);
+  if (
+    await ForFiles(
+      m._,
+      async (loc): Promise<boolean> => {
+        // TODO: Add recursion (if specified) & full directory scanning
+        const orig = await fsp.readFile(loc, 'utf-8');
+        const res = Uglify.minify(orig, uglifyOptions);
+        if (res.error) {
+          err(res.error);
+          return false;
+        }
+        const dest = inPlace
+          ? loc
+          : getSuffixedName(loc, suffix || 'min', outDir || '');
+        if (outDir) {
+          shelljs.mkdir('-p', path.dirname(dest));
+        }
+        await fsp.writeFile(dest, res.code, 'utf-8');
+        // console.log(`Before: ${orig.length} after ${res.code.length}`);
+        return true;
+      },
+      { recurse, keepGoing },
+    )
+  ) {
+    return 0;
   }
-  return fnRes ? 0 : -1;
+  return -1;
 }
 
 if (require.main === module) {
