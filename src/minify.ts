@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import minimist from 'minimist';
+import minimist, { ParsedArgs, Opts as MinimistOpts } from 'minimist';
 import shelljs from 'shelljs';
 import Uglify from 'uglify-es';
 import { promises as fsp } from 'fs';
@@ -33,7 +33,29 @@ function getSuffixedName(name: string, suffix: string, outDir: string) {
   return path.join(dir, p);
 }
 
-export async function minify(args: string[]): Promise<number> {
+export type MinifyParams = {
+  suffix?: string;
+  inPlace: boolean;
+  recurse: boolean;
+  keepGoing: boolean;
+  outDir?: string;
+  args: string[];
+};
+
+export function minifyArgs(m: ParsedArgs): MinifyParams {
+  return {
+    suffix: Type.hasStr(m, 's')
+      ? m.s.replace(/^\.*/, '').replace(/\.*$/, '') // Get rid of .'s
+      : undefined,
+    inPlace: m.i === true,
+    recurse: m.r === true,
+    keepGoing: m.e === true,
+    outDir: Type.hasStr(m, 'o') ? m.o : undefined,
+    args: m._,
+  };
+}
+
+export async function minify(unparsed: string[]): Promise<number> {
   // -e : halt on first error (defaults to false)
   // -i : 'in-place', defaults to false (overwrites foo.js)
   // -r : 'recursive', defaults to false
@@ -41,15 +63,11 @@ export async function minify(args: string[]): Promise<number> {
   // -o dir : 'out-dir', defaults to '', prepended to path
   // everything else is either files or dirs to minify individually
   // eslint-disable-next-line
-  const m = minimist(args, { boolean: ['e', 'i', 'r'] });
+  const mo: MinimistOpts = { boolean: ['e', 'i', 'r'] };
+  const m: ParsedArgs = minimist(unparsed, mo);
 
-  const suffix = Type.hasStr(m, 's')
-    ? m.s.replace(/^\.*/, '').replace(/\.*$/, '') // Get rid of .'s
-    : undefined;
-  const inPlace = m.i === true;
-  const recurse = m.r === true;
-  const keepGoing = m.e === true;
-  const outDir = Type.hasStr(m, 'o') ? m.o : undefined;
+  const { suffix, inPlace, recurse, keepGoing, outDir, args } = minifyArgs(m);
+
   if (inPlace && suffix) {
     err("-i (in-place) and -s (suffix) don't work together");
     return -1;
@@ -58,7 +76,7 @@ export async function minify(args: string[]): Promise<number> {
     err("-r (recursive) and -o (output dir) don't work together");
     return -1;
   }
-  if (m._.length === 0) {
+  if (args.length === 0) {
     err('Please pass some files or a directory or something');
     return -1;
   }
@@ -66,9 +84,8 @@ export async function minify(args: string[]): Promise<number> {
   // Run uglify on each file specified
   if (
     await ForFiles(
-      m._,
+      args,
       async (loc): Promise<boolean> => {
-        // TODO: Add recursion (if specified) & full directory scanning
         const orig = await fsp.readFile(loc, 'utf-8');
         const res = Uglify.minify(orig, uglifyOptions);
         if (res.error) {
