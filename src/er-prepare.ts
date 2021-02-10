@@ -6,22 +6,28 @@ import { invoke } from './tools';
 
 const err = MakeError('er-prepare-err');
 
-export async function electronReactPrepare(args: string[]): Promise<number> {
+export async function electronReactPrepareWithEnv(
+  env: string,
+  args: string[],
+): Promise<number> {
   if (args.length > 0 && args[0] === '-r') {
     await concurrently([
-      'tsc -p config/tsconfig.static.rel.json',
-      'tsc -p config/tsconfig.render.rel.json',
+      `${env} tsc -p config/tsconfig.static.rel.json`,
+      `${env} tsc -p config/tsconfig.render.rel.json`,
     ]);
   } else if (args.length === 0) {
     await concurrently([
-      'tsc -p config/tsconfig.static.json',
-      'tsc -p config/tsconfig.render.json',
+      `${env} tsc -p config/tsconfig.static.json`,
+      `${env} tsc -p config/tsconfig.render.json`,
     ]);
   } else {
     err('No arguments to er-types currently...');
     return -1;
   }
   return 0;
+}
+export async function electronReactPrepare(args: string[]): Promise<number> {
+  return await electronReactPrepareWithEnv('', args);
 }
 
 if (require.main === module) {

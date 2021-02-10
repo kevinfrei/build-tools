@@ -5,14 +5,18 @@ import shelljs from 'shelljs';
 
 const err = MakeError('er-build-err');
 
-export function electronReactBuild(args: string[]): number {
+export function electronReactBuildWithEnv(env: string, args: string[]): number {
   if (args.length === 0) {
-    shelljs.exec('react-scripts build');
+    shelljs.exec(`${env} react-scripts build`);
   } else {
     err('No arguments to er-types currently...');
     return -1;
   }
   return 0;
+}
+
+export function electronReactBuild(args: string[]): number {
+  return electronReactBuildWithEnv('', args);
 }
 
 if (require.main === module) {

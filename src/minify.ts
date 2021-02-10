@@ -11,7 +11,7 @@ import { ForFiles } from '@freik/node-utils';
 
 const err = MakeError('minify-err');
 
-const uglifyOptions = {
+const uglifyOptions: { [key: string]: any } /* : Uglify.MinifyOptions */ = {
   toplevel: true,
   compress: {
     passes: 2,
@@ -20,8 +20,8 @@ const uglifyOptions = {
   output: {
     beautify: false,
     semicolons: false,
-    ecma: 6,
   },
+  ecma: 6,
 };
 
 function getSuffixedName(name: string, suffix: string, outDir: string) {
@@ -38,6 +38,7 @@ export type MinifyParams = {
   inPlace: boolean;
   recurse: boolean;
   keepGoing: boolean;
+  map: boolean;
   outDir?: string;
   args: string[];
 };
@@ -50,6 +51,7 @@ export function minifyArgs(m: ParsedArgs): MinifyParams {
     inPlace: m.i === true,
     recurse: m.r === true,
     keepGoing: m.e === true,
+    map: m.m === true,
     outDir: Type.hasStr(m, 'o') ? m.o : undefined,
     args: m._,
   };
@@ -59,14 +61,17 @@ export async function minify(unparsed: string[]): Promise<number> {
   // -e : halt on first error (defaults to false)
   // -i : 'in-place', defaults to false (overwrites foo.js)
   // -r : 'recursive', defaults to false
+  // -m : 'maps': read input maps (and product output map files)
   // -s min : 'suffix', defaults to min (i.e. foo.min.js)
   // -o dir : 'out-dir', defaults to '', prepended to path
   // everything else is either files or dirs to minify individually
   // eslint-disable-next-line
-  const mo: MinimistOpts = { boolean: ['e', 'i', 'r'] };
+  const mo: MinimistOpts = { boolean: ['e', 'i', 'r', 'm'] };
   const m: ParsedArgs = minimist(unparsed, mo);
 
-  const { suffix, inPlace, recurse, keepGoing, outDir, args } = minifyArgs(m);
+  const { suffix, inPlace, recurse, keepGoing, map, outDir, args } = minifyArgs(
+    m,
+  );
 
   if (inPlace && suffix) {
     err("-i (in-place) and -s (suffix) don't work together");
@@ -86,21 +91,33 @@ export async function minify(unparsed: string[]): Promise<number> {
     await ForFiles(
       args,
       async (loc): Promise<boolean> => {
-        const orig = await fsp.readFile(loc, 'utf-8');
-        const res = Uglify.minify(orig, uglifyOptions);
-        if (res.error) {
-          err(res.error);
+        try {
+          const orig = await fsp.readFile(loc, 'utf-8');
+          if (map) {
+            uglifyOptions.sourceMap = { content: loc + '.map' };
+          }
+          const res = Uglify.minify(orig, uglifyOptions);
+          if (res.error) {
+            err(res.error);
+            return false;
+          }
+          const dest = inPlace
+            ? loc
+            : getSuffixedName(loc, suffix || 'min', outDir || '');
+          if (outDir) {
+            shelljs.mkdir('-p', path.dirname(dest));
+          }
+          await fsp.writeFile(dest, res.code, 'utf-8');
+          if (map) {
+            await fsp.writeFile(dest + '.map', res.map, 'utf-8');
+          }
+          // console.log(`Before: ${orig.length} after ${res.code.length}`);
+          return true;
+        } catch (e) {
+          err('Caught an exception while processing ' + loc);
+          err(e);
           return false;
         }
-        const dest = inPlace
-          ? loc
-          : getSuffixedName(loc, suffix || 'min', outDir || '');
-        if (outDir) {
-          shelljs.mkdir('-p', path.dirname(dest));
-        }
-        await fsp.writeFile(dest, res.code, 'utf-8');
-        // console.log(`Before: ${orig.length} after ${res.code.length}`);
-        return true;
       },
       { recurse, keepGoing, fileTypes: '.js' },
     )
