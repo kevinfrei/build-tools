@@ -9,7 +9,8 @@ import { minify } from './minify';
 
 const err = MakeError('er-analyze-err');
 /*
-GENERATE_SOURCEMAP=true yarn build && yarn source-map-explorer 'build/static/js/*.js' 'build/main/*.js' 'build/*.js'
+GENERATE_SOURCEMAP=true yarn build &&
+yarn source-map-explorer 'build/static/js/*.js' 'build/main/*.js' 'build/*.js'
 */
 
 export async function electronReactAnalyze(args: string[]): Promise<number> {
