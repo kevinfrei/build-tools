@@ -1,6 +1,6 @@
 {
   "name": "@freik/build-tools",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Tools for building stuff (cross platform!)",
   "main": "index.js",
   "author": "Kevin Frei (kevinfrei@hotmail.com)",
