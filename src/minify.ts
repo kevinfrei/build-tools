@@ -94,10 +94,13 @@ export async function minify(unparsed: string[]): Promise<number> {
         try {
           const orig = await fsp.readFile(loc, 'utf-8');
           if (map) {
-            uglifyOptions.sourceMap = { content: loc + '.map' };
+            uglifyOptions.sourceMap = {
+              content: await fsp.readFile(loc + '.map', 'utf-8'),
+            };
           }
           const res = Uglify.minify(orig, uglifyOptions);
           if (res.error) {
+            err('For file: ' + loc);
             err(res.error);
             return false;
           }
