@@ -2,7 +2,7 @@
 
 import minimist, { ParsedArgs, Opts as MinimistOpts } from 'minimist';
 import shelljs from 'shelljs';
-import Uglify from 'uglify-es';
+import Terser from 'terser';
 import { promises as fsp } from 'fs';
 import { MakeError, Type } from '@freik/core-utils';
 import path from 'path';
@@ -11,7 +11,7 @@ import { ForFiles } from '@freik/node-utils';
 
 const err = MakeError('minify-err');
 
-const uglifyOptions: { [key: string]: any } /* : Uglify.MinifyOptions */ = {
+const uglifyOptions: Terser.MinifyOptions = {
   toplevel: true,
   compress: {
     passes: 2,
@@ -21,7 +21,7 @@ const uglifyOptions: { [key: string]: any } /* : Uglify.MinifyOptions */ = {
     beautify: false,
     semicolons: false,
   },
-  ecma: 6,
+  ecma: 2020,
 };
 
 function getSuffixedName(name: string, suffix: string, outDir: string) {
@@ -98,10 +98,9 @@ export async function minify(unparsed: string[]): Promise<number> {
               content: await fsp.readFile(loc + '.map', 'utf-8'),
             };
           }
-          const res = Uglify.minify(orig, uglifyOptions);
-          if (res.error) {
-            err('For file: ' + loc);
-            err(res.error);
+          const res = await Terser.minify(orig, uglifyOptions);
+          if (!res || !res.code) {
+            err('No results when minifying ' + loc);
             return false;
           }
           const dest = inPlace
@@ -111,8 +110,10 @@ export async function minify(unparsed: string[]): Promise<number> {
             shelljs.mkdir('-p', path.dirname(dest));
           }
           await fsp.writeFile(dest, res.code, 'utf-8');
-          if (map) {
+          if (map && Type.isString(res.map)) {
             await fsp.writeFile(dest + '.map', res.map, 'utf-8');
+          } else if (map) {
+            err('No map file produced for file ' + loc);
           }
           // console.log(`Before: ${orig.length} after ${res.code.length}`);
           return true;
