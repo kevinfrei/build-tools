@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-
-import { MakeError } from '@freik/core-utils';
 import concurrently from 'concurrently';
 import { invoke } from './tools';
 
-const err = MakeError('er-prepare-err');
+// eslint-disable-next-line no-console
+const err = console.error;
 
 export async function electronReactPrepareWithEnv(
   env: string,

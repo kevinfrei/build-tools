@@ -431,23 +431,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@freik/core-utils@^0.17.0":
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/@freik/core-utils/-/core-utils-0.17.0.tgz#b1009e1a626f48ad60bc13cbec26bb496335a2d4"
-  integrity sha512-rse4sBxgRbnGBlPek5oHK/743R6EcFKSHzLYctjluRVjjKE+3WaeEt1KOw5d/r8cmX4VOdToZTEIkBkRzLZk8Q==
-
-"@freik/core-utils@^0.19.0":
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/@freik/core-utils/-/core-utils-0.19.0.tgz#4dab9043ccdbe1da12dc009bbd781753b8c7dbc9"
-  integrity sha512-tSWvhfBEKdo4bOUZ12YzSsr4RDF8RzH9LS1MCgGJI1fHkk6FNL+8hSmy9kZUC9zrr7fiJznfSAkLo1O7rQg5eA==
-
-"@freik/node-utils@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@freik/node-utils/-/node-utils-0.13.0.tgz#4b6872d737b14daf3dd787c0b48ec4998e34fc73"
-  integrity sha512-F1MK/lQ8kmotQjjrOqC4EBzy7v9ENBTIxUWkpDpvrkO14tMVuet9zptxV3qG+jHeCLa3PdHyg+vhkycwBnehPw==
-  dependencies:
-    "@freik/core-utils" "^0.17.0"
-
 "@hapi/hoek@^9.0.0":
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.2.0.tgz#f3933a44e365864f4dad5db94158106d511e8131"

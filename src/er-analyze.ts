@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-import { MakeError } from '@freik/core-utils';
 import { electronReactBuildWithEnv } from './er-build';
 import { electronReactPrepareWithEnv } from './er-prepare';
 import { invoke } from './tools';
 import shelljs from 'shelljs';
 import { minify } from './minify';
 
-const err = MakeError('er-analyze-err');
+// eslint-disable-next-line no-console
+const err = console.error;
+
 /*
 GENERATE_SOURCEMAP=true yarn build &&
 yarn source-map-explorer 'build/static/js/*.js' 'build/main/*.js' 'build/*.js'

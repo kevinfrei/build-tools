@@ -44,8 +44,6 @@
     "@babel/core": "^7.13.16",
     "@babel/preset-flow": "^7.13.13",
     "@babel/preset-react": "^7.13.13",
-    "@freik/core-utils": "^0.19.0",
-    "@freik/node-utils": "^0.13.0",
     "@typescript-eslint/parser": "^4.22.0",
     "concurrently": "^6.0.2",
     "cross-env": "^7.0.3",

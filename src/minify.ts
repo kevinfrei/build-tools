@@ -3,13 +3,39 @@
 import minimist, { ParsedArgs, Opts as MinimistOpts } from 'minimist';
 import shelljs from 'shelljs';
 import Terser from 'terser';
-import { promises as fsp } from 'fs';
-import { MakeError, Type } from '@freik/core-utils';
+import fs, { promises as fsp } from 'fs';
 import path from 'path';
 import { invoke } from './tools';
-import { ForFiles } from '@freik/node-utils';
 
-const err = MakeError('minify-err');
+// eslint-disable-next-line no-console
+const err = console.error;
+
+function isObjectNonNull(obj: unknown): obj is { [key: string]: unknown } {
+  return typeof obj === 'object' && !!obj;
+}
+
+function isString(obj: unknown): obj is string {
+  return typeof obj === 'string';
+}
+function isBoolean(obj: unknown): obj is boolean {
+  return typeof obj === 'boolean';
+}
+function has<K extends string>(
+  x: unknown,
+  key: K,
+  // eslint-disable-next-line no-shadow
+): x is { [key in K]: unknown } {
+  return isObjectNonNull(x) && key in x;
+}
+
+// eslint-disable-next-line no-shadow
+function hasStr<K extends string>(
+  x: unknown,
+  key: K,
+  // eslint-disable-next-line no-shadow
+): x is { [key in K]: string } {
+  return has(x, key) && isString(x[key]);
+}
 
 const uglifyOptions: Terser.MinifyOptions = {
   toplevel: true,
@@ -45,14 +71,14 @@ export type MinifyParams = {
 
 export function minifyArgs(m: ParsedArgs): MinifyParams {
   return {
-    suffix: Type.hasStr(m, 's')
+    suffix: hasStr(m, 's')
       ? m.s.replace(/^\.*/, '').replace(/\.*$/, '') // Get rid of .'s
       : undefined,
     inPlace: m.i === true,
     recurse: m.r === true,
     keepGoing: m.e === true,
     map: m.m === true,
-    outDir: Type.hasStr(m, 'o') ? m.o : undefined,
+    outDir: hasStr(m, 'o') ? m.o : undefined,
     args: m._,
   };
 }
@@ -110,7 +136,7 @@ export async function minify(unparsed: string[]): Promise<number> {
             shelljs.mkdir('-p', path.dirname(dest));
           }
           await fsp.writeFile(dest, res.code, 'utf-8');
-          if (map && Type.isString(res.map)) {
+          if (map && isString(res.map)) {
             await fsp.writeFile(dest + '.map', res.map, 'utf-8');
           } else if (map) {
             err('No map file produced for file ' + loc);
@@ -129,6 +155,92 @@ export async function minify(unparsed: string[]): Promise<number> {
     return 0;
   }
   return -1;
+}
+
+async function ForFiles(
+  seed: string | string[],
+  func: (fileName: string) => Promise<boolean> | boolean,
+  opts?: {
+    recurse?: boolean;
+    keepGoing?: boolean;
+    fileTypes?: string[] | string;
+  },
+): Promise<boolean> {
+  // Helper function to match the file types
+  const recurse = opts && opts.recurse;
+  const keepGoing = opts && opts.keepGoing;
+  const fileTypes = opts && opts.fileTypes;
+  const fileMatcher = fileTypes
+    ? (str: string): boolean => {
+        const uc = str.toLocaleUpperCase();
+        if (isString(fileTypes)) {
+          return uc.endsWith(fileTypes.toLocaleUpperCase());
+        }
+        const fsfx = fileTypes.map((val) => val.toLocaleUpperCase());
+        for (const ft of fsfx) {
+          if (uc.endsWith(ft)) {
+            return true;
+          }
+        }
+        return false;
+      }
+    : (): boolean => true;
+
+  const queue: string[] = isString(seed) ? [seed] : seed;
+  let overallResult = true;
+  while (queue.length > 0) {
+    const i = queue.pop();
+    if (!i) {
+      continue;
+    }
+    const st = await fsp.stat(i);
+    if (st.isFile() && fileMatcher(i)) {
+      let res = func(i);
+      if (!isBoolean(res)) {
+        res = await res;
+      }
+      if (res !== true) {
+        overallResult = false;
+        if (!keepGoing) {
+          return false;
+        }
+      }
+    } else if (st.isDirectory()) {
+      // For directories in the queue, we walk all their files
+      let dirents: fs.Dirent[] | null = null;
+      try {
+        dirents = await fsp.readdir(i, { withFileTypes: true });
+      } catch (e) {
+        err(`Unable to read ${i || '<unknown>'}`);
+        continue;
+      }
+      if (!dirents) {
+        continue;
+      }
+      for (const dirent of dirents) {
+        try {
+          if (dirent.isSymbolicLink()) {
+            const ap = await fsp.realpath(path.join(i, dirent.name));
+            const lst = await fsp.stat(ap);
+            if (lst.isDirectory() && recurse) {
+              queue.push(ap);
+            } else if (lst.isFile()) {
+              queue.push(ap);
+            }
+          } else if (dirent.isDirectory() && recurse) {
+            queue.push(path.join(i, dirent.name));
+          } else if (dirent.isFile()) {
+            queue.push(path.join(i, dirent.name));
+          }
+        } catch (e) {
+          err('Unable to process dirent:');
+          err(dirent);
+          continue;
+        }
+      }
+    }
+  }
+  return overallResult;
 }
 
 if (require.main === module) {

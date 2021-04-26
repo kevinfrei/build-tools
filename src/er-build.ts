@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { MakeError } from '@freik/core-utils';
 import shelljs from 'shelljs';
 
-const err = MakeError('er-build-err');
+// eslint-disable-next-line no-console
+const err = console.error;
 
 export function electronReactBuildWithEnv(env: string, args: string[]): number {
   if (args.length === 0) {
