@@ -95,9 +95,8 @@ export async function minify(unparsed: string[]): Promise<number> {
   const mo: MinimistOpts = { boolean: ['e', 'i', 'r', 'm'] };
   const m: ParsedArgs = minimist(unparsed, mo);
 
-  const { suffix, inPlace, recurse, keepGoing, map, outDir, args } = minifyArgs(
-    m,
-  );
+  const { suffix, inPlace, recurse, keepGoing, map, outDir, args } =
+    minifyArgs(m);
 
   if (inPlace && suffix) {
     err("-i (in-place) and -s (suffix) don't work together");
