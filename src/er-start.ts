@@ -14,10 +14,11 @@ concurrently --kill-others
 export async function electronReactStart(args: string[]): Promise<number> {
   await electronReactPrepare([]);
   const setPort = args[0] === undefined ? '' : `PORT=${args[0]} `;
+  const port = args[0] === undefined ? '3000' : args[0];
   await concurrently(
     [
-      `cross-env BROWSER=none ${setPort}react-scripts start`,
-      'wait-on http://localhost:3000 && electron .',
+      `cross-env ${setPort}BROWSER=none react-scripts start`,
+      `wait-on http://localhost:${port} && electron .`,
     ],
     // This kills the electron process if the browser process quits
     // (and vice versa)

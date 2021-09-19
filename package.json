@@ -35,7 +35,7 @@
     "postversion": "git push && git push --tags --no-verify",
     "compile": "tsc --noEmit",
     "chk": "yarn format && yarn lint && yarn compile && yarn test",
-    "_postinstall": "husky install",
+    "postinstall": "husky install",
     "postpublish": "pinst --enable"
   },
   "dependencies": {
