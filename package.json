@@ -4,6 +4,7 @@
   "description": "Tools for building stuff (cross platform!)",
   "author": "Kevin Frei (kevinfrei@hotmail.com)",
   "license": "Unlicense",
+  "type": "module",
   "bin": {
     "minify": "./lib/minify.js",
     "er-prepare": "./lib/er-prepare.js",
