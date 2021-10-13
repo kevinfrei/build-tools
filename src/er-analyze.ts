@@ -1,7 +1,7 @@
 import { electronReactBuildWithEnv } from './er-build.js';
 import { electronReactPrepareWithEnv } from './er-prepare.js';
 import shelljs from 'shelljs';
-import { minify } from './minify';
+import { minify } from './minify.js';
 
 // eslint-disable-next-line no-console
 const err = console.error;
