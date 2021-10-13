@@ -1,6 +1,7 @@
 import minimist, { ParsedArgs, Opts as MinimistOpts } from 'minimist';
 import shelljs from 'shelljs';
-import Terser from 'terser';
+import * as Terser from 'terser';
+import glob from 'glob';
 import fs, { promises as fsp } from 'node:fs';
 import path from 'node:path';
 
@@ -182,7 +183,11 @@ async function ForFiles(
       }
     : (): boolean => true;
 
-  const queue: string[] = isString(seed) ? [seed] : seed;
+  const globbed: string[] = isString(seed) ? [seed] : seed;
+  const queueArray: string[][] = globbed.map((n) =>
+    glob.sync(n, { noext: true, nobrace: true, nonull: true }),
+  );
+  const queue: string[] = Array.prototype.concat(...queueArray) as string[];
   let overallResult = true;
   while (queue.length > 0) {
     const i = queue.pop();
