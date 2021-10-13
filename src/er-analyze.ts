@@ -1,8 +1,5 @@
-#!/usr/bin/env node
-
-import { electronReactBuildWithEnv } from './er-build';
-import { electronReactPrepareWithEnv } from './er-prepare';
-import { invoke } from './tools';
+import { electronReactBuildWithEnv } from './er-build.js';
+import { electronReactPrepareWithEnv } from './er-prepare.js';
 import shelljs from 'shelljs';
 import { minify } from './minify';
 
@@ -33,8 +30,4 @@ export async function electronReactAnalyze(args: string[]): Promise<number> {
     "source-map-explorer 'build/static/js/*.js' 'build/main/*.js' 'build/*.js'",
   );
   return r.code;
-}
-
-if (require.main === module) {
-  invoke(electronReactAnalyze);
 }

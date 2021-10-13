@@ -1,6 +1,4 @@
-#!/usr/bin/env node
 import concurrently from 'concurrently';
-import { invoke } from './tools';
 
 // eslint-disable-next-line no-console
 const err = console.error;
@@ -27,8 +25,4 @@ export async function electronReactPrepareWithEnv(
 }
 export async function electronReactPrepare(args: string[]): Promise<number> {
   return await electronReactPrepareWithEnv('', args);
-}
-
-if (require.main === module) {
-  invoke(electronReactPrepare);
 }

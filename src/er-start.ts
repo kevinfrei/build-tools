@@ -1,7 +1,4 @@
-#!/usr/bin/env node
-
-import { electronReactPrepare } from './er-prepare';
-import { invoke } from './tools';
+import { electronReactPrepare } from './er-prepare.js';
 import concurrently from 'concurrently';
 
 /*
@@ -25,8 +22,4 @@ export async function electronReactStart(args: string[]): Promise<number> {
     { killOthers: ['success', 'failure'] },
   );
   return 0;
-}
-
-if (require.main === module) {
-  invoke(electronReactStart);
 }

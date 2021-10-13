@@ -1,11 +1,8 @@
-#!/usr/bin/env node
-
 import minimist, { ParsedArgs, Opts as MinimistOpts } from 'minimist';
 import shelljs from 'shelljs';
 import Terser from 'terser';
-import fs, { promises as fsp } from 'fs';
-import path from 'path';
-import { invoke } from './tools';
+import fs, { promises as fsp } from 'node:fs';
+import path from 'node:path';
 
 // eslint-disable-next-line no-console
 const err = console.error;
@@ -240,8 +237,4 @@ async function ForFiles(
     }
   }
   return overallResult;
-}
-
-if (require.main === module) {
-  invoke(minify);
 }

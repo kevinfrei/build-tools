@@ -2,7 +2,12 @@
 
 General tools for building other things. Currently;
 
-- Babelify
-  This is deprecated, as I no longer use `flow` for my JS stuff.
 - minify
   This is a thing to minify code, meant to be applied after TS compilation.
+- A bunch of commands to do stuff in my Electron-React setup:
+  - `start`
+  - `types`
+  - `test`
+  - `prepare`
+  - `check`
+  - `analyze`

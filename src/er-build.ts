@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import shelljs from 'shelljs';
 
 // eslint-disable-next-line no-console
@@ -17,8 +15,4 @@ export function electronReactBuildWithEnv(env: string, args: string[]): number {
 
 export function electronReactBuild(args: string[]): number {
   return electronReactBuildWithEnv('', args);
-}
-
-if (require.main === module) {
-  electronReactBuild(process.argv.slice(2));
 }
