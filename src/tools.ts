@@ -57,7 +57,7 @@ switch (process.argv[2].toLocaleLowerCase()) {
   case 'build':
     electronReactBuild(process.argv.slice(2));
     break;
-  case 'makeModule':
+  case 'makemodule':
     invoke(makeDualModeModule);
     break;
   default:
