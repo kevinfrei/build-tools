@@ -1,6 +1,6 @@
 {
   "name": "@freik/build-tools",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Tools for building stuff (cross platform!)",
   "author": "Kevin Frei (kevinfrei@hotmail.com)",
   "license": "Unlicense",
@@ -55,6 +55,7 @@
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.58.0",
+    "rollup-plugin-dts": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "shelljs": "^0.8.4",
     "source-map-explorer": "^2.5.2",
