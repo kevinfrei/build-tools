@@ -8,6 +8,7 @@ import { electronReactPrepare } from './er-prepare.js';
 import { electronReactStart } from './er-start.js';
 import { electronReactTest } from './er-test.js';
 import { electronReactTypes } from './er-types.js';
+import { makeDualModeModule } from './make-module.js';
 import { minify } from './minify.js';
 
 // eslint-disable-next-line no-console
@@ -55,6 +56,9 @@ switch (process.argv[2].toLocaleLowerCase()) {
     break;
   case 'build':
     electronReactBuild(process.argv.slice(2));
+    break;
+  case 'makeModule':
+    invoke(makeDualModeModule);
     break;
   default:
     err('Sorry, unrecognized ER command!');
