@@ -8,6 +8,8 @@ export function electronReactBuildWithEnv(env: string, args: string[]): number {
     shelljs.exec(`${env} react-scripts build`);
   } else {
     err('No arguments to er-types currently...');
+    err(args);
+    err(args.length);
     return -1;
   }
   return 0;
