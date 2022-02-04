@@ -11,12 +11,12 @@ export async function electronReactPrepareWithEnv(
     await concurrently([
       `${env} tsc -p config/tsconfig.static.rel.json`,
       `${env} tsc -p config/tsconfig.render.rel.json`,
-    ]);
+    ]).result;
   } else if (args.length === 0) {
     await concurrently([
       `${env} tsc -p config/tsconfig.static.json`,
       `${env} tsc -p config/tsconfig.render.json`,
-    ]);
+    ]).result;
   } else {
     err('No arguments to er-types currently...');
     return -1;

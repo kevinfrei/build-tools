@@ -20,6 +20,6 @@ export async function electronReactStart(args: string[]): Promise<number> {
     // This kills the electron process if the browser process quits
     // (and vice versa)
     { killOthers: ['success', 'failure'] },
-  );
+  ).result;
   return 0;
 }

@@ -9,7 +9,7 @@ export async function electronReactTypes(args: string[]): Promise<number> {
       'tsc --noEmit',
       'tsc --noEmit -p config/tsconfig.static.json',
       'tsc --noEmit -p config/tsconfig.render.json',
-    ]);
+    ]).result;
     return 0;
   } else {
     err('No arguments to er-types currently...');
