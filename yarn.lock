@@ -15,7 +15,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/cli@npm:^7.X.X":
+"@babel/cli@npm:~7":
   version: 7.17.10
   resolution: "@babel/cli@npm:7.17.10"
   dependencies:
@@ -65,7 +65,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.1.0, @babel/core@npm:^7.7.2, @babel/core@npm:^7.8.0, @babel/core@npm:^7.X.X":
+"@babel/core@npm:^7.1.0, @babel/core@npm:^7.7.2, @babel/core@npm:^7.8.0, @babel/core@npm:~7":
   version: 7.18.2
   resolution: "@babel/core@npm:7.18.2"
   dependencies:
@@ -1467,7 +1467,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.X.X":
+"@babel/preset-env@npm:~7":
   version: 7.18.2
   resolution: "@babel/preset-env@npm:7.18.2"
   dependencies:
@@ -1552,7 +1552,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-flow@npm:^7.X.X":
+"@babel/preset-flow@npm:~7":
   version: 7.17.12
   resolution: "@babel/preset-flow@npm:7.17.12"
   dependencies:
@@ -1580,7 +1580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-react@npm:^7.X.X":
+"@babel/preset-react@npm:~7":
   version: 7.17.12
   resolution: "@babel/preset-react@npm:7.17.12"
   dependencies:
@@ -1738,13 +1738,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@freik/build-tools@workspace:."
   dependencies:
-    "@babel/cli": ^7.X.X
-    "@babel/core": ^7.X.X
-    "@babel/preset-env": ^7.X.X
-    "@babel/preset-flow": ^7.X.X
-    "@babel/preset-react": ^7.X.X
-    "@rollup/plugin-babel": ^5.X.X
-    "@rollup/plugin-node-resolve": ^13.X.X
+    "@babel/cli": ~7
+    "@babel/core": ~7
+    "@babel/preset-env": ~7
+    "@babel/preset-flow": ~7
+    "@babel/preset-react": ~7
+    "@rollup/plugin-babel": ~5
+    "@rollup/plugin-node-resolve": ~13
     "@types/glob": ^7.2.0
     "@types/jest": ^27.5.1
     "@types/minimist": ^1.2.2
@@ -1752,37 +1752,37 @@ __metadata:
     "@types/shelljs": ^0.8.11
     "@types/uglify-es": ^3.0.0
     "@typescript-eslint/eslint-plugin": ^5.26.0
-    "@typescript-eslint/parser": ^5.X.X
-    concurrently: ^7.X.X
-    cross-env: ^7.X.X
-    eslint: ^8.X.X
-    eslint-config-prettier: ^8.X.X
-    eslint-plugin-import: ^2.X.X
-    eslint-plugin-prettier: ^4.X.X
-    glob: ^8.X.X
+    "@typescript-eslint/parser": ~5
+    concurrently: ~7
+    cross-env: ~7
+    eslint: ~8
+    eslint-config-prettier: ~8
+    eslint-plugin-import: ~2
+    eslint-plugin-prettier: ~4
+    glob: ~8
     husky: ^8.0.1
-    jest: ^27.X.X
-    jest-extended: ^2.X.X
-    jest-transform-css: ^4.X.X
-    minimist: ^1.X.X
+    jest: ~27
+    jest-extended: ~2
+    jest-transform-css: ~4
+    minimist: ~1
     pinst: ^3.0.0
-    postcss: ^8.X.X
-    prettier: ^2.X.X
-    rimraf: ^3.X.X
-    rollup: ^2.X.X
-    rollup-plugin-dts: ^4.X.X
-    rollup-plugin-terser: ^7.X.X
-    shelljs: ^0.X.X
-    source-map-explorer: ^2.X.X
-    terser: ^5.X.X
-    ts-jest: ^27.X.X
-    typescript: ^4.X.X
-    wait-on: ^6.X.X
+    postcss: ~8
+    prettier: ~2
+    rimraf: ~3
+    rollup: ~2
+    rollup-plugin-dts: ~4
+    rollup-plugin-terser: ~7
+    shelljs: ~0
+    source-map-explorer: ~2
+    terser: ~5
+    ts-jest: ~27
+    typescript: ~4
+    wait-on: ~6
   peerDependencies:
-    prettier: ^2.6.0
-    react: ^17.0.0
-    react-scripts: ^5.0.0
-    typescript: ^4.5.0
+    prettier: ~2
+    react: ">17.0.0"
+    react-scripts: ">5.0.0"
+    typescript: ">4.5.0"
   peerDependenciesMeta:
     react:
       optional: true
@@ -2161,7 +2161,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-babel@npm:^5.X.X":
+"@rollup/plugin-babel@npm:~5":
   version: 5.3.1
   resolution: "@rollup/plugin-babel@npm:5.3.1"
   dependencies:
@@ -2178,7 +2178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-node-resolve@npm:^13.X.X":
+"@rollup/plugin-node-resolve@npm:~13":
   version: 13.3.0
   resolution: "@rollup/plugin-node-resolve@npm:13.3.0"
   dependencies:
@@ -2518,7 +2518,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.X.X":
+"@typescript-eslint/parser@npm:~5":
   version: 5.26.0
   resolution: "@typescript-eslint/parser@npm:5.26.0"
   dependencies:
@@ -3341,7 +3341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"concurrently@npm:^7.X.X":
+"concurrently@npm:~7":
   version: 7.2.1
   resolution: "concurrently@npm:7.2.1"
   dependencies:
@@ -3421,7 +3421,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-env@npm:^7.X.X":
+"cross-env@npm:~7":
   version: 7.0.3
   resolution: "cross-env@npm:7.0.3"
   dependencies:
@@ -3822,7 +3822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.X.X":
+"eslint-config-prettier@npm:~8":
   version: 8.5.0
   resolution: "eslint-config-prettier@npm:8.5.0"
   peerDependencies:
@@ -3853,7 +3853,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.X.X":
+"eslint-plugin-import@npm:~2":
   version: 2.26.0
   resolution: "eslint-plugin-import@npm:2.26.0"
   dependencies:
@@ -3876,7 +3876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^4.X.X":
+"eslint-plugin-prettier@npm:~4":
   version: 4.0.0
   resolution: "eslint-plugin-prettier@npm:4.0.0"
   dependencies:
@@ -3936,7 +3936,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.X.X":
+"eslint@npm:~8":
   version: 8.16.0
   resolution: "eslint@npm:8.16.0"
   dependencies:
@@ -4404,7 +4404,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^8.X.X":
+"glob@npm:~8":
   version: 8.0.3
   resolution: "glob@npm:8.0.3"
   dependencies:
@@ -5221,7 +5221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-extended@npm:^2.X.X":
+"jest-extended@npm:~2":
   version: 2.0.0
   resolution: "jest-extended@npm:2.0.0"
   dependencies:
@@ -5492,7 +5492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-transform-css@npm:^4.X.X":
+"jest-transform-css@npm:~4":
   version: 4.0.1
   resolution: "jest-transform-css@npm:4.0.1"
   dependencies:
@@ -5573,7 +5573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^27.X.X":
+"jest@npm:~27":
   version: 27.5.1
   resolution: "jest@npm:27.5.1"
   dependencies:
@@ -6018,7 +6018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.6, minimist@npm:^1.X.X":
+"minimist@npm:^1.2.6, minimist@npm:~1":
   version: 1.2.6
   resolution: "minimist@npm:1.2.6"
   checksum: d15428cd1e11eb14e1233bcfb88ae07ed7a147de251441d61158619dfb32c4d7e9061d09cab4825fdee18ecd6fce323228c8c47b5ba7cd20af378ca4048fb3fb
@@ -6613,7 +6613,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.X.X":
+"postcss@npm:~8":
   version: 8.4.14
   resolution: "postcss@npm:8.4.14"
   dependencies:
@@ -6647,7 +6647,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.X.X":
+"prettier@npm:~2":
   version: 2.6.2
   resolution: "prettier@npm:2.6.2"
   bin:
@@ -7000,7 +7000,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^3.0.0, rimraf@npm:^3.0.2, rimraf@npm:^3.X.X":
+"rimraf@npm:^3.0.0, rimraf@npm:^3.0.2, rimraf@npm:~3":
   version: 3.0.2
   resolution: "rimraf@npm:3.0.2"
   dependencies:
@@ -7022,7 +7022,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-dts@npm:^4.X.X":
+"rollup-plugin-dts@npm:~4":
   version: 4.2.2
   resolution: "rollup-plugin-dts@npm:4.2.2"
   dependencies:
@@ -7038,7 +7038,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-terser@npm:^7.X.X":
+"rollup-plugin-terser@npm:~7":
   version: 7.0.2
   resolution: "rollup-plugin-terser@npm:7.0.2"
   dependencies:
@@ -7052,7 +7052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.X.X":
+"rollup@npm:~2":
   version: 2.74.1
   resolution: "rollup@npm:2.74.1"
   dependencies:
@@ -7211,7 +7211,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shelljs@npm:^0.X.X":
+"shelljs@npm:~0":
   version: 0.8.5
   resolution: "shelljs@npm:0.8.5"
   dependencies:
@@ -7298,7 +7298,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-explorer@npm:^2.X.X":
+"source-map-explorer@npm:~2":
   version: 2.5.2
   resolution: "source-map-explorer@npm:2.5.2"
   dependencies:
@@ -7611,7 +7611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.X.X":
+"terser@npm:~5":
   version: 5.13.1
   resolution: "terser@npm:5.13.1"
   dependencies:
@@ -7711,7 +7711,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^27.X.X":
+"ts-jest@npm:~27":
   version: 27.1.5
   resolution: "ts-jest@npm:27.1.5"
   dependencies:
@@ -7829,7 +7829,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.X.X":
+"typescript@npm:~4":
   version: 4.7.2
   resolution: "typescript@npm:4.7.2"
   bin:
@@ -7839,7 +7839,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.X.X#~builtin<compat/typescript>":
+"typescript@patch:typescript@~4#~builtin<compat/typescript>":
   version: 4.7.2
   resolution: "typescript@patch:typescript@npm%3A4.7.2#~builtin<compat/typescript>::version=4.7.2&hash=493e53"
   bin:
@@ -7969,7 +7969,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wait-on@npm:^6.X.X":
+"wait-on@npm:~6":
   version: 6.0.1
   resolution: "wait-on@npm:6.0.1"
   dependencies:

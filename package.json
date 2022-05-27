@@ -32,37 +32,37 @@
     "postpublish": "pinst --enable"
   },
   "dependencies": {
-    "@babel/cli": "^7.X.X",
-    "@babel/core": "^7.X.X",
-    "@babel/preset-env": "^7.X.X",
-    "@babel/preset-flow": "^7.X.X",
-    "@babel/preset-react": "^7.X.X",
-    "@rollup/plugin-babel": "^5.X.X",
-    "@rollup/plugin-node-resolve": "^13.X.X",
-    "@typescript-eslint/parser": "^5.X.X",
-    "concurrently": "^7.X.X",
-    "cross-env": "^7.X.X",
-    "eslint": "^8.X.X",
-    "eslint-config-prettier": "^8.X.X",
-    "eslint-plugin-import": "^2.X.X",
-    "eslint-plugin-prettier": "^4.X.X",
-    "glob": "^8.X.X",
-    "jest": "^27.X.X",
-    "jest-extended": "^2.X.X",
-    "jest-transform-css": "^4.X.X",
-    "minimist": "^1.X.X",
-    "postcss": "^8.X.X",
-    "prettier": "^2.X.X",
-    "rimraf": "^3.X.X",
-    "rollup": "^2.X.X",
-    "rollup-plugin-dts": "^4.X.X",
-    "rollup-plugin-terser": "^7.X.X",
-    "shelljs": "^0.X.X",
-    "source-map-explorer": "^2.X.X",
-    "terser": "^5.X.X",
-    "ts-jest": "^27.X.X",
-    "typescript": "^4.X.X",
-    "wait-on": "^6.X.X"
+    "@babel/cli": "~7",
+    "@babel/core": "~7",
+    "@babel/preset-env": "~7",
+    "@babel/preset-flow": "~7",
+    "@babel/preset-react": "~7",
+    "@rollup/plugin-babel": "~5",
+    "@rollup/plugin-node-resolve": "~13",
+    "@typescript-eslint/parser": "~5",
+    "concurrently": "~7",
+    "cross-env": "~7",
+    "eslint": "~8",
+    "eslint-config-prettier": "~8",
+    "eslint-plugin-import": "~2",
+    "eslint-plugin-prettier": "~4",
+    "glob": "~8",
+    "jest": "~27",
+    "jest-extended": "~2",
+    "jest-transform-css": "~4",
+    "minimist": "~1",
+    "postcss": "~8",
+    "prettier": "~2",
+    "rimraf": "~3",
+    "rollup": "~2",
+    "rollup-plugin-dts": "~4",
+    "rollup-plugin-terser": "~7",
+    "shelljs": "~0",
+    "source-map-explorer": "~2",
+    "terser": "~5",
+    "ts-jest": "~27",
+    "typescript": "~4",
+    "wait-on": "~6"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
@@ -76,10 +76,10 @@
     "pinst": "^3.0.0"
   },
   "peerDependencies": {
-    "prettier": "^2.6.0",
-    "react": "^17.0.0",
-    "react-scripts": "^5.0.0",
-    "typescript": "^4.5.0"
+    "prettier": "~2",
+    "react": ">17.0.0",
+    "react-scripts": ">5.0.0",
+    "typescript": ">4.5.0"
   },
   "peerDependenciesMeta": {
     "react": {
@@ -90,7 +90,7 @@
     }
   },
   "engines": {
-    "node": "^14.13.1 || >= 16.0.0"
+    "node": "~14.13.1 || >= 16.0.0"
   },
   "packageManager": "yarn@3.1.1"
 }
