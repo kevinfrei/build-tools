@@ -38,10 +38,10 @@ export async function formatFiles(unparsed: string[]): Promise<number> {
     },
   });
   const js = files.groups.get('prettier');
-  const cpp = files.groups.get('cpp');
+  const cpp = files.groups.get('clang');
   if (!Type.isUndefined(js)) {
     const fileList = makeFileList(js);
-    const jsres = await execp(`${pkgmgr} prettier ${fileList}`);
+    const jsres = await execp(`${pkgmgr} prettier --write ${fileList}`);
     console.log(jsres.stdout);
     console.error(jsres.stderr);
   }
