@@ -8,6 +8,7 @@ import { electronReactPrepare } from './er-prepare.js';
 import { electronReactStart } from './er-start.js';
 import { electronReactTest } from './er-test.js';
 import { electronReactTypes } from './er-types.js';
+import { formatFiles } from './format.js';
 import { makeDualModeModule } from './make-module.js';
 import { minify } from './minify.js';
 
@@ -59,6 +60,9 @@ switch (process.argv[2].toLocaleLowerCase()) {
     break;
   case 'makemodule':
     invoke(makeDualModeModule);
+    break;
+  case 'format':
+    invoke(formatFiles);
     break;
   default:
     err('Sorry, unrecognized ER command!');
