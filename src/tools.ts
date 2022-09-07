@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/**
+ * This is the entry point for scripts invoked by your package manager
+ */
+
 import * as process from 'node:process';
 import { electronReactAnalyze } from './er-analyze.js';
 import { electronReactBuild } from './er-build.js';
@@ -65,7 +69,10 @@ switch (process.argv[2].toLocaleLowerCase()) {
     invoke(formatFiles);
     break;
   default:
-    err('Sorry, unrecognized ER command!');
+    err('Sorry, unrecognized ftool command!');
     err('Supported commands:');
-    err('minify, start, types, test, prepar, check, analyze, build');
+    err(
+      'minify, start, types, test, prepare, check, analyze, build, makemodule, format',
+    );
+    process.exit(-1);
 }

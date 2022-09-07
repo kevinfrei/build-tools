@@ -1744,7 +1744,7 @@ __metadata:
     "@babel/preset-flow": ~7
     "@babel/preset-react": ~7
     "@freik/core-utils": ~1
-    "@freik/node-utils": ">=1.1.3"
+    "@freik/node-utils": ">=1.1.4"
     "@rollup/plugin-babel": ~5
     "@rollup/plugin-node-resolve": ~13
     "@types/glob": ^7.2.0
@@ -1782,9 +1782,9 @@ __metadata:
     wait-on: ~6
   peerDependencies:
     prettier: ~2
-    react: ">17.0.0"
-    react-scripts: ">5.0.0"
-    typescript: ">4.5.0"
+    react: ">=17.0.0"
+    react-scripts: ">=5.0.0"
+    typescript: ">=4.5.0"
   peerDependenciesMeta:
     react:
       optional: true
@@ -1792,6 +1792,7 @@ __metadata:
       optional: true
   bin:
     er: ./lib/tools.js
+    ftool: ./lib/tools.js
   languageName: unknown
   linkType: soft
 
@@ -1802,25 +1803,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@freik/is-hidden-file@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@freik/is-hidden-file@npm:0.3.1"
+"@freik/is-hidden-file@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "@freik/is-hidden-file@npm:0.3.2"
   dependencies:
     cmake-js: ^6.3.2
     run-script-os: ^1.1.6
-  checksum: 0ec2f7a9990ec6d2c1a5a86ed6319ea35912576a41b14ba6775fa372d8cc1fe0f9d3a8bd2fe6bbb0763be9dde12c7405ed0af3b7bae4aa6697f9b6282c63d847
+  checksum: 84747f45b7266292a46f9057e54343dc15770369c08e1ed24601dd65c1c22d0791a00f74e539f2861af61ef817023eaa3fcad60676f3a63f58a7d34d6ebc5d79
   conditions: (os=darwin | os=linux | os=win32)
   languageName: node
   linkType: hard
 
-"@freik/node-utils@npm:>=1.1.3":
-  version: 1.1.3
-  resolution: "@freik/node-utils@npm:1.1.3"
+"@freik/node-utils@npm:>=1.1.4":
+  version: 1.1.4
+  resolution: "@freik/node-utils@npm:1.1.4"
   dependencies:
-    "@freik/is-hidden-file": ^0.3.1
+    "@freik/is-hidden-file": ^0.3.2
   peerDependencies:
     "@freik/core-utils": ">=1.1.1"
-  checksum: 20e880a013a415e69e6bdb3bb450b447b66f0d1c4641339ed759ac3d72212c49af94b643bedd8534485f4a343a5875826e2408fb99ce4ab63b352e3aaa7292c2
+  checksum: a0ce8e7bca53e48bab7421416e04233425227f7b77233d490bba87642215b299147613ce104cc9f5415e3a677e2d67bc9cd43aa0a990cacab41f808b292c6624
   languageName: node
   linkType: hard
 
