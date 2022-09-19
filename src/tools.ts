@@ -13,6 +13,7 @@ import { electronReactStart } from './er-start.js';
 import { electronReactTest } from './er-test.js';
 import { electronReactTypes } from './er-types.js';
 import { formatFiles } from './format.js';
+import { countLines } from './line-count.js';
 import { makeDualModeModule } from './make-module.js';
 import { minify } from './minify.js';
 
@@ -67,6 +68,9 @@ switch (process.argv[2].toLocaleLowerCase()) {
     break;
   case 'format':
     invoke(formatFiles);
+    break;
+  case 'linecount':
+    invoke(countLines);
     break;
   default:
     err('Sorry, unrecognized ftool command!');
