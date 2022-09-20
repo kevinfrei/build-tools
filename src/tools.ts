@@ -70,13 +70,14 @@ switch (process.argv[2].toLocaleLowerCase()) {
     invoke(formatFiles);
     break;
   case 'linecount':
+  case 'line-count':
     invoke(countLines);
     break;
   default:
     err('Sorry, unrecognized ftool command!');
     err('Supported commands:');
     err(
-      'minify, start, types, test, prepare, check, analyze, build, makemodule, format',
+      'minify, start, types, test, prepare, check, analyze, build, makemodule, format, linecount',
     );
     process.exit(-1);
 }

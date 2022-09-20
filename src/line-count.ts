@@ -5,6 +5,18 @@ import fs from 'fs';
 import { once } from 'events';
 
 export async function countLines(unparsed: string[]): Promise<number> {
+  function help() {
+    console.error('Unknown arguments to linecount');
+    console.error(' Pass a list of suffixes to count by starting them with .');
+    console.error(
+      ' Pass a list of substrings to exclude by starting them with -',
+    );
+    console.error('For example: line-count .ts -.test.');
+    console.error(
+      ' will count the lines in all the .ts files, unless the file',
+    );
+    console.error(' name contains ".test."');
+  }
   const include = unparsed
     .filter((v) => v.startsWith('.'))
     .map((v) => v.substring(1));
@@ -12,20 +24,16 @@ export async function countLines(unparsed: string[]): Promise<number> {
     .filter((v) => v.startsWith('-'))
     .map((v) => v.substring(1));
   if (include.length + exclude.length !== unparsed.length) {
-    console.error('Unknown arguments to ');
+    help();
     return -1;
   }
-  console.error(`Include: ${include.length} Exclude: ${exclude.length}`);
   const rgexp = '\\.(' + include.join('|') + ')$';
   const toCount = new RegExp(rgexp, 'i');
   const files = await Git.files({ groups: { toCount } });
-  console.error(
-    `Git files: ${files.groups.get('toCount')?.length || -1}, ${
-      files.remaining.length
-    }`,
-  );
   const types = files.groups.get('toCount');
   if (Type.isUndefined(types)) {
+    console.error('No files counted');
+    help();
     return 0;
   }
   // Remove any files that contain one of the excluded string patterns
