@@ -5,8 +5,20 @@ import { Type } from '@Freik/core-utils';
 
 const execp = promisify(exec);
 
-function makeFileList(files: string[]) {
-  return files.map((f) => (f.startsWith('"') ? f : `"${f}"`)).join(' ');
+function makeFileLists(files: string[]): string[] {
+  const res: string[] = [''];
+  for (const file of files) {
+    const cleaned = file.startsWith('"') ? file : `"${file}"`;
+    if (
+      res[res.length - 1].length === 0 ||
+      res[res.length - 1].length + cleaned.length < 2048
+    ) {
+      res[res.length - 1] += ` ${cleaned}`;
+    } else {
+      res.push(cleaned);
+    }
+  }
+  return res;
 }
 
 export async function formatFiles(unparsed: string[]): Promise<number> {
@@ -40,16 +52,40 @@ export async function formatFiles(unparsed: string[]): Promise<number> {
   const js = files.groups.get('prettier');
   const cpp = files.groups.get('clang');
   if (!Type.isUndefined(js)) {
-    const fileList = makeFileList(js);
-    const jsres = await execp(`${pkgmgr} prettier --write ${fileList}`);
-    console.log(jsres.stdout);
-    console.error(jsres.stderr);
+    // Have to batch files: truly delightful... Thanks, windows shell...
+    const fileLists = makeFileLists(js);
+    for (const file of fileLists) {
+      let jsres;
+      try {
+        jsres = await execp(`${pkgmgr} prettier --write ${file}`);
+      } catch (e) {
+        console.error(e);
+        console.error(file);
+        console.error(fileLists);
+      }
+      if (jsres !== undefined) {
+        console.log(jsres.stdout);
+        console.error(jsres.stderr);
+      }
+    }
   }
   if (!Type.isUndefined(cpp)) {
-    const fileList = makeFileList(cpp);
-    const cppres = await execp(`clang-format -i ${fileList}`);
-    console.log(cppres.stdout);
-    console.error(cppres.stderr);
+    const fileLists = makeFileLists(cpp);
+    // Have to batch files: truly delightful... Thanks, windows shell...
+    for (const file of fileLists) {
+      let cppres;
+      try {
+        cppres = await execp(`clang-format -i ${file}`);
+      } catch (e) {
+        console.error(e);
+        console.error(file);
+        console.error(fileLists);
+      }
+      if (cppres !== undefined) {
+        console.log(cppres.stdout);
+        console.error(cppres.stderr);
+      }
+    }
   }
   return 0;
 }
