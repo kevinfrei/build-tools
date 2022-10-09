@@ -1,5 +1,5 @@
 import { Git } from '@freik/node-utils';
-import { Type } from '@Freik/core-utils';
+import { Type } from '@freik/core-utils';
 import rl from 'readline';
 import fs from 'fs';
 import { once } from 'events';

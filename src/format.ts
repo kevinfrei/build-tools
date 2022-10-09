@@ -1,7 +1,7 @@
 import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
 import { Git } from '@freik/node-utils';
-import { Type } from '@Freik/core-utils';
+import { Type } from '@freik/core-utils';
 
 const execp = promisify(exec);
 
