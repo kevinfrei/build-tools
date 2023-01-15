@@ -15,7 +15,7 @@ export async function electronReactStart(args: string[]): Promise<number> {
   await concurrently(
     [
       `cross-env ${setPort}BROWSER=none react-scripts start`,
-      `wait-on http://localhost:${port} && electron .`,
+      `wait-on http://127.0.0.1:${port} && electron .`,
     ],
     // This kills the electron process if the browser process quits
     // (and vice versa)
