@@ -44,9 +44,11 @@ export async function formatFiles(unparsed: string[]): Promise<number> {
         if (filename === '.prettierrc') {
           return true;
         }
-        return /\.(ts|tsx|js|jsx|md|html|css|json)$/i.test(filename);
+        return /\.(ts|tsx|js|jsx|md|html|css|json|ejs|mjs|cjs)$/i.test(
+          filename,
+        );
       },
-      clang: /\.(cpp|c|cc|h|hh|hpp)$/i,
+      clang: /\.(cpp|c|cc|ino|h|hh|hpp)$/i,
     },
   });
   const js = files.groups.get('prettier');

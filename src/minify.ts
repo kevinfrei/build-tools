@@ -185,7 +185,7 @@ async function ForFiles(
 
   const globbed: string[] = isString(seed) ? [seed] : seed;
   const queueArray: string[][] = globbed.map((n) =>
-    glob.sync(n, { noext: true, nobrace: true, nonull: true }),
+    glob.sync(n, { noext: true, nobrace: true }),
   );
   const queue: string[] = Array.prototype.concat(...queueArray) as string[];
   let overallResult = true;
