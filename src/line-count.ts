@@ -1,4 +1,4 @@
-import { Git } from '@freik/node-utils';
+import * as Git from './git.js';
 import rl from 'readline';
 import fs from 'fs';
 import { once } from 'events';

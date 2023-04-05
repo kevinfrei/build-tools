@@ -1,6 +1,6 @@
 import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
-import { Git } from '@freik/node-utils';
+import * as Git from './git.js';
 
 const execp = promisify(exec);
 
