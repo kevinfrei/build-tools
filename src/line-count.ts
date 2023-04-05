@@ -1,5 +1,4 @@
 import { Git } from '@freik/node-utils';
-import { Type } from '@freik/core-utils';
 import rl from 'readline';
 import fs from 'fs';
 import { once } from 'events';
@@ -31,7 +30,7 @@ export async function countLines(unparsed: string[]): Promise<number> {
   const toCount = new RegExp(rgexp, 'i');
   const files = await Git.files({ groups: { toCount } });
   const types = files.groups.get('toCount');
-  if (Type.isUndefined(types)) {
+  if (types === undefined) {
     console.error('No files counted');
     help();
     return 0;
