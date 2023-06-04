@@ -15,6 +15,6 @@ export function electronReactBuildWithEnv(env: string, args: string[]): number {
   return 0;
 }
 
-export function electronReactBuild(args: string[]): number {
-  return electronReactBuildWithEnv('', args);
+export async function electronReactBuild(args: string[]): Promise<number> {
+  return Promise.resolve(electronReactBuildWithEnv('', args));
 }
